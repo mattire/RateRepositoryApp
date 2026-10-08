@@ -1,5 +1,7 @@
 import Constants from 'expo-constants';
 import { StyleSheet, View } from 'react-native';
+import { Route, Routes, Navigate } from 'react-router-native';
+
 import RepositoryList  from './RepositoryList';
 import AppBar  from './AppBar';
 
@@ -35,7 +37,6 @@ const Main = () => {
   console.log('Loading?')
   return (
     <>
-    {/* <View> */}
     <View style={styles.container}>
         <AppBar title='Repositories' onBack={() => { Callback(); console.log('Hello') }}></AppBar>
         <Text color="textSecondary" fontWeight='bold' fontSize="subheading">Simple text</Text>
@@ -45,9 +46,12 @@ const Main = () => {
             <Text style={{ paddingTop: 10 }}>Text with custom style2</Text>
         </View> */}
         {/* <Text>Rate Repository Application X2</Text> */}
+        <Routes>
+          <Route path="/" element={<RepositoryList />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
         <RepositoryList></RepositoryList>
     </View>
-    {/* </View> */}
     </>
   );
 };

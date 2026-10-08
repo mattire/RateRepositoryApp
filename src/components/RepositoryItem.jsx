@@ -5,6 +5,43 @@ const styles = StyleSheet.create({
    container: {
     padding: 20,
   },
+  item: {
+    flexDirection: 'row',      // image and text side by side
+    alignItems: 'center',      // vertically center content in the row
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    padding: 12,
+  },
+  itemTxtContainer :
+  {
+    flexDirection: 'column', 
+    backgroundColor: '#fff',     
+    borderRadius: 2,
+  },
+  stats:{
+    flexDirection: 'row', 
+    backgroundColor: '#fff',
+    padding: 2,
+  },
+  stat:{
+    flexDirection: 'column', 
+    alignItems: 'center',   
+    backgroundColor: '#fff',
+    padding: 10,
+  },
+  colorbox:{
+    flexGrow: 0,
+    margin: 10,
+    backgroundColor: '#3bf',
+  },
+  boldText:{
+    fontWeight:'700'
+  },
+  title: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: '700',
+  },
   text: {
     color: 'blue',
     fontSize: 24,
@@ -14,41 +51,52 @@ const styles = StyleSheet.create({
     height: 10,
   },
   stretch: {
-    width: 100,
-    height: 100,
+    width:  50,
+    height: 50,
     resizeMode: 'stretch',
+    margin: 24,
   },
 });
 
+const Stat = ({title, amount}) => {
+  return (    
+    <View style={styles.stat}>
+      <Text style={styles.boldText}>{amount}</Text>
+      <Text>{title}</Text>
+    </View>
+  )}
+
 
 const Item = ({item, onPress, backgroundColor, textColor}) => (
-  <View>
-    {/* source={require(item.ownerAvatarUrl) */}
+  <View style={styles.item} >
   <Image 
-    style={styles.stretch}
+    style={styles.stretch} 
     source={{ uri: item.ownerAvatarUrl }}>
     </Image>
 
-  <>
-  <Text onPress={onPress} style={[styles.item, {backgroundColor}]}>
-    FullName: {item.fullName}{'\n'}
-    Description: {item.description}{'\n'}
-    Language: {item.language}{'\n'}
-    ForksCount: {item.forksCount}{'\n'}
-    StargazersCount: {item.stargazersCount}{'\n'}
-    RatingAverage: {item.ratingAverage}{'\n'}
-    ReviewCount: {item.reviewCount}{'\n'}
-    OwnerAvatarUrl: {item.ownerAvatarUrl}{'\n'}
-  </Text>
-  </>
+  <View style={styles.itemTxtContainer} >
+    <Text style={styles.title}> {item.fullName} </Text>
+    <Text onPress={onPress} style={[styles.flexItemB, {backgroundColor}]}>
+      {item.description}{'\n'}
+    </Text>
+    <Text style={styles.colorbox}>{item.language}</Text>
+    <View style={styles.stats}>
+      <Stat title={'Stars'}   amount={item.stargazersCount}></Stat>
+      <Stat title={'Forks'}   amount={item.forksCount}>     </Stat>
+      <Stat title={'Reviews'} amount={item.reviewCount}>    </Stat>
+      <Stat title={'Rating'}  amount={item.ratingAverage}>  </Stat>
+    </View>
+  </View>
   </View>
   
 );
 
 
+
 const RepositoryItem = ({item}) => {
     //const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
-    const backgroundColor = '#6eab8e';
+    //const backgroundColor = '#6eab8e';
+    const backgroundColor = '#fff';
     //const color = item.id === selectedId ? 'white' : 'black';
     const color = item.id === 'black';
 
