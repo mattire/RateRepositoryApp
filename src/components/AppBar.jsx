@@ -14,10 +14,15 @@ const styles = StyleSheet.create({
         paddingBottom: 12, backgroundColor: '#50a6b8', elevation: 4 },
   title: { flex: 1, color: '#fff', fontSize: 20, fontWeight: '600', marginHorizontal: 12 },
   icon: { color: '#fff', fontSize: 22 },
+  content: { flex: 1, 
+        flexDirection: 'row-reverse',
+  }
   // ...
 });
 
-const AppBar = ({ title, onBack, right }) => {
+
+
+const AppBar = ({ title, children, onBack, right }) => {
   
   return (
     <View style={styles.bar}>
@@ -26,9 +31,10 @@ const AppBar = ({ title, onBack, right }) => {
       <Pressable onPress={onBack}>
         <Text style={styles.icon}>←</Text>
       </Pressable>}
-      <Text style={styles.title}>{title}</Text>
+      {/* <Text style={styles.title}>{title}</Text> */}
       {/* <Text>{title}</Text> */}
-      <View>{right}</View>
+      {/* <View>{right}</View> */}
+      <View styles={styles.content}>{children}</View>
     </View>);
 };
 
