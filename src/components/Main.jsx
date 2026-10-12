@@ -5,6 +5,7 @@ import { Route, Routes, Navigate , useNavigate, Link } from 'react-router-native
 
 
 import RepositoryList  from './RepositoryList';
+import BodyMassIndexCalculator  from './BodyMassIndexCalculator';
 import SignIn  from './Signin';
 import AppBar  from './AppBar';
 
@@ -32,11 +33,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ label, onPress }) => {
+//const AppBarTab = ({ label, onPress }) => {
+const AppBarTab = ({ label, onRoute }) => {
   return (
-    <Pressable onPress={onPress} style={{ marginRight: 20 }}>
+    // <Pressable onPress={onPress} style={{ marginRight: 20 }}>
+    //   <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>{label}</Text>
+    // </Pressable>
+    <Link to={onRoute} component={Pressable} style={{ marginRight: 20 }}>
       <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>{label}</Text>
-    </Pressable>
+    </Link>
   );
 }
 
@@ -51,6 +56,10 @@ const Callback = () => {
   
 // }
 
+const loginMethod = () => {
+  console.log('loginMethod');
+}
+
 
 const Main = () => {
   console.log('Loading?')
@@ -60,9 +69,15 @@ const Main = () => {
     <View style={styles.container}>
         <AppBar title='Repositories' onBack={() => { Callback(); console.log('Hello') }}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <AppBarTab label="Repositories" onPress={() => navigate('Repositories')} />
-            <AppBarTab label="Sign in" onPress={() => navigate('SignIn')} />
-            <AppBarTab label="Reviews" onPress={() => navigate('Reviews')} />
+            <AppBarTab label="Repositories" onRoute="/Repositories" onPress={() => navigate('Repositories')} />
+            <AppBarTab label="Sign in"      onRoute="/signin" onPress={() => navigate('SignIn')}       />
+            <AppBarTab label="Reviews"      onRoute="/signin" onPress={() => navigate('SignIn')}       />
+            <AppBarTab label="BodyMassCalc" onRoute="/BodyMassCalc" onPress={() => navigate('BodyMassCalc')}/>
+            {/* <Link to="/SignIn" component={Pressable}>
+              <Text>Sign in</Text>
+              </Link> 
+              <AppBarTab label="Reviews" onPress={() => navigate('Reviews')} />
+            */}
           </ScrollView>
         </AppBar>
         <Text color="textSecondary" fontWeight='bold' fontSize="subheading">Simple text</Text>
@@ -73,9 +88,9 @@ const Main = () => {
         </View> */}
         {/* <Text>Rate Repository Application X2</Text> */}
         <Routes>
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn onSubmit={loginMethod} />} />
           <Route path="/Repositories" element={<RepositoryList />} />
-          <Route path="/" element={<RepositoryList />} />
+          <Route path="/BodyMassCalc" element={<BodyMassIndexCalculator />} />
           {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
           {/* <Route path="*" element={<Navigate to="/signin" replace />} /> */}
         </Routes>
